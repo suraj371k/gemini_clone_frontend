@@ -115,7 +115,7 @@ export default function LoginForm() {
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
             {step === "phone" ? "Welcome Back" : "Verify Your Phone"}
           </h2>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-white">
             {step === "phone"
               ? "Enter your phone number to get started"
               : "We've sent a verification code to your phone"}
@@ -131,7 +131,7 @@ export default function LoginForm() {
           >
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label className="text-gray-700 dark:text-gray-300 font-medium">
+                <Label className="text-gray-700 font-medium">
                   Country
                 </Label>
                 <CountrySelect onChange={(v) => setSelectedCountry(v)} />
@@ -153,7 +153,7 @@ export default function LoginForm() {
                 <div className="flex gap-3">
                   <div className="relative w-28">
                     <Input
-                      className="py-5 rounded-lg bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-center font-medium"
+                      className="py-5 rounded-lg text-white border-gray-200 dark:border-gray-700 text-center font-medium"
                       readOnly
                       value={phoneForm.watch("dialCode")}
                     />
