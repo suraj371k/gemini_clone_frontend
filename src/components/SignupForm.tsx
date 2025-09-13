@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
@@ -151,9 +151,7 @@ export default function SignupForm() {
             <div key={s.id} className="flex items-center">
               <div
                 className={`flex flex-col items-center ${
-                  i <= currentStepIndex
-                    ? "text-blue-400"
-                    : "text-gray-400"
+                  i <= currentStepIndex ? "text-blue-400" : "text-gray-400"
                 }`}
               >
                 <div
@@ -195,17 +193,12 @@ export default function SignupForm() {
               <h2 className="text-2xl font-bold text-gray-100 mb-2">
                 Create Account
               </h2>
-              <p className="text-gray-400">
-                Enter your details to get started
-              </p>
+              <p className="text-gray-400">Enter your details to get started</p>
             </div>
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label
-                  htmlFor="name"
-                  className="text-gray-300"
-                >
+                <Label htmlFor="name" className="text-gray-300">
                   Full Name
                 </Label>
                 <div className="relative">
@@ -225,10 +218,7 @@ export default function SignupForm() {
               </div>
 
               <div className="space-y-2">
-                <Label
-                  htmlFor="email"
-                  className="text-gray-300"
-                >
+                <Label htmlFor="email" className="text-gray-300">
                   Email Address
                 </Label>
                 <div className="relative">
@@ -296,23 +286,16 @@ export default function SignupForm() {
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label className="text-gray-300">
-                  Country
-                </Label>
+                <Label className="text-gray-300">Country</Label>
                 <CountrySelect onChange={(v) => setSelectedCountry(v)} />
                 {(phoneForm.formState.errors.country ||
                   phoneForm.formState.errors.dialCode) && (
-                  <p className="text-red-400 text-sm mt-1">
-                    Select a country
-                  </p>
+                  <p className="text-red-400 text-sm mt-1">Select a country</p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <Label
-                  htmlFor="phone"
-                  className="text-gray-300"
-                >
+                <Label htmlFor="phone" className="text-gray-300">
                   Phone Number
                 </Label>
                 <div className="flex gap-3">
@@ -383,16 +366,13 @@ export default function SignupForm() {
                 Enter Verification Code
               </h2>
               <p className="text-gray-400">
-                We've sent a 4-digit code to your phone
+                We&apos;ve sent a verification code to your phone
               </p>
             </div>
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label
-                  htmlFor="otp"
-                  className="text-gray-300"
-                >
+                <Label htmlFor="otp" className="text-gray-300">
                   Verification Code
                 </Label>
                 <div className="relative">

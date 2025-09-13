@@ -1,6 +1,5 @@
 import LoginForm from "@/components/LoginForm";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
   return (
@@ -23,7 +22,7 @@ export default function LoginPage() {
         <div className="mt-8 text-center space-y-4">
           <div className="flex items-center justify-center space-x-4 text-sm">
             <span className="text-gray-500 dark:text-gray-400">
-              Don't have an account?
+              Don&apos;t have an account?
             </span>
             <Link
               href="/signup"

@@ -16,10 +16,13 @@ type PhoneFormValues = z.infer<typeof phoneSchema>;
 type OtpFormValues = z.infer<typeof otpSchema>;
 
 export default function LoginForm() {
-  const { sendOtp, otp, setUser, clearUser, user, clearOtp } = useAuthStore();
+  const { sendOtp, otp, setUser, user, clearOtp } = useAuthStore();
   const router = useRouter();
   const [step, setStep] = useState<"phone" | "otp" | "done">("phone");
-  const [selectedCountry, setSelectedCountry] = useState<{ name: string; code: string } | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<{
+    name: string;
+    code: string;
+  } | null>(null);
 
   const phoneForm = useForm<PhoneFormValues>({
     resolver: zodResolver(phoneSchema),
@@ -78,8 +81,18 @@ export default function LoginForm() {
         <div className="text-center py-8">
           <div className="flex justify-center mb-6">
             <div className="h-16 w-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-              <svg className="h-10 w-10 text-green-600 dark:text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              <svg
+                className="h-10 w-10 text-green-600 dark:text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
             </div>
           </div>
@@ -87,7 +100,7 @@ export default function LoginForm() {
             Login Successful!
           </h2>
           <p className="text-gray-600 dark:text-gray-400">
-            Welcome back! You're now logged in.
+            Welcome back! You&apos;re now logged in.
           </p>
         </div>
       </div>
@@ -103,30 +116,38 @@ export default function LoginForm() {
             {step === "phone" ? "Welcome Back" : "Verify Your Phone"}
           </h2>
           <p className="text-gray-600 dark:text-gray-400">
-            {step === "phone" 
-              ? "Enter your phone number to get started" 
-              : "We've sent a verification code to your phone"
-            }
+            {step === "phone"
+              ? "Enter your phone number to get started"
+              : "We've sent a verification code to your phone"}
           </p>
         </div>
       </div>
 
       <div className="px-6 pb-6">
         {step === "phone" && (
-          <form className="space-y-5" onSubmit={phoneForm.handleSubmit(handleSendOtp)}>
+          <form
+            className="space-y-5"
+            onSubmit={phoneForm.handleSubmit(handleSendOtp)}
+          >
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label className="text-gray-700 dark:text-gray-300 font-medium">
                   Country
                 </Label>
                 <CountrySelect onChange={(v) => setSelectedCountry(v)} />
-                {(phoneForm.formState.errors.country || phoneForm.formState.errors.dialCode) && (
-                  <p className="text-red-500 dark:text-red-400 text-sm mt-1">Select a country</p>
+                {(phoneForm.formState.errors.country ||
+                  phoneForm.formState.errors.dialCode) && (
+                  <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                    Select a country
+                  </p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="phone" className="text-gray-700 dark:text-gray-300 font-medium">
+                <Label
+                  htmlFor="phone"
+                  className="text-gray-700 dark:text-gray-300 font-medium"
+                >
                   Phone Number
                 </Label>
                 <div className="flex gap-3">
@@ -164,10 +185,16 @@ export default function LoginForm() {
         )}
 
         {step === "otp" && (
-          <form className="space-y-5" onSubmit={otpForm.handleSubmit(handleVerifyOtp)}>
+          <form
+            className="space-y-5"
+            onSubmit={otpForm.handleSubmit(handleVerifyOtp)}
+          >
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="otp" className="text-gray-700 dark:text-gray-300 font-medium">
+                <Label
+                  htmlFor="otp"
+                  className="text-gray-700 dark:text-gray-300 font-medium"
+                >
                   Verification Code
                 </Label>
                 <Input

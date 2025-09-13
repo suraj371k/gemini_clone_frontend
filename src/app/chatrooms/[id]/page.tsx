@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import Image from "next/image";
 
 export default function ChatroomPage() {
   const { id } = useParams<{ id: string }>();
@@ -41,7 +42,7 @@ export default function ChatroomPage() {
   const generateDummyHistory = useCallback(
     (count: number, startFrom: number): Message[] => {
       const out: Message[] = [];
-      let t = startFrom;
+      const t = startFrom;
       for (let i = 0; i < count; i += 1) {
         const isUser = i % 2 === 0;
         out.push({
@@ -120,7 +121,11 @@ export default function ChatroomPage() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && !isLoadingOlder && page * PAGE_SIZE < allMessages.length) {
+        if (
+          entries[0].isIntersecting &&
+          !isLoadingOlder &&
+          page * PAGE_SIZE < allMessages.length
+        ) {
           loadOlder();
         }
       },
@@ -137,7 +142,7 @@ export default function ChatroomPage() {
   const loadOlder = useCallback(() => {
     setIsLoadingOlder(true);
     setTimeout(() => {
-      setDisplayed((prev) => {
+      setDisplayed(() => {
         const totalToShow = Math.min(
           allMessages.length,
           (page + 1) * PAGE_SIZE
@@ -160,7 +165,7 @@ export default function ChatroomPage() {
       });
       setPage((p) => p + 1);
       setIsLoadingOlder(false);
-    }, 800); 
+    }, 800);
   }, [allMessages, page]);
 
   // Send message (text or image)
@@ -216,8 +221,14 @@ export default function ChatroomPage() {
   };
 
   const SkeletonMessage = ({ sender }: { sender: "user" | "ai" }) => (
-    <div className={`flex ${sender === "user" ? "justify-end" : "justify-start"}`}>
-      <div className={`flex items-start gap-3 max-w-xs lg:max-w-md ${sender === "user" ? "flex-row-reverse" : ""}`}>
+    <div
+      className={`flex ${sender === "user" ? "justify-end" : "justify-start"}`}
+    >
+      <div
+        className={`flex items-start gap-3 max-w-xs lg:max-w-md ${
+          sender === "user" ? "flex-row-reverse" : ""
+        }`}
+      >
         <Skeleton className="h-10 w-10 rounded-full" />
         <div className="space-y-2">
           <Skeleton className="h-4 w-32" />
@@ -290,11 +301,15 @@ export default function ChatroomPage() {
             {displayed.map((msg) => (
               <div
                 key={msg.id}
-                className={`flex items-start gap-3 ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+                className={`flex items-start gap-3 ${
+                  msg.sender === "user" ? "justify-end" : "justify-start"
+                }`}
               >
                 {msg.sender === "ai" && (
                   <Avatar className="h-8 w-8">
-                    <AvatarFallback className="bg-blue-900/30 text-blue-400">AI</AvatarFallback>
+                    <AvatarFallback className="bg-blue-900/30 text-blue-400">
+                      AI
+                    </AvatarFallback>
                   </Avatar>
                 )}
                 <div
@@ -310,9 +325,11 @@ export default function ChatroomPage() {
                     <div className="text-sm leading-relaxed">{msg.text}</div>
                   )}
                   {msg.imageUrl && (
-                    <img
+                    <Image
                       src={msg.imageUrl}
                       alt="uploaded"
+                      width={400}
+                      height={400}
                       className="mt-2 max-h-64 rounded-lg w-full object-cover shadow-md"
                     />
                   )}
@@ -326,7 +343,9 @@ export default function ChatroomPage() {
                 </div>
                 {msg.sender === "user" && (
                   <Avatar className="h-8 w-8">
-                    <AvatarFallback className="bg-gray-700 text-gray-200">U</AvatarFallback>
+                    <AvatarFallback className="bg-gray-700 text-gray-200">
+                      U
+                    </AvatarFallback>
                   </Avatar>
                 )}
               </div>
@@ -336,7 +355,9 @@ export default function ChatroomPage() {
             {isTyping && (
               <div className="flex items-start gap-3">
                 <Avatar className="h-8 w-8">
-                  <AvatarFallback className="bg-blue-900/30 text-blue-400">AI</AvatarFallback>
+                  <AvatarFallback className="bg-blue-900/30 text-blue-400">
+                    AI
+                  </AvatarFallback>
                 </Avatar>
                 <div className="bg-gray-800 rounded-2xl px-4 py-3">
                   <div className="flex items-center gap-2 text-sm text-gray-400">
@@ -363,13 +384,18 @@ export default function ChatroomPage() {
           <div className="border-t border-gray-700 bg-gray-900 p-4 sm:p-6">
             {selectedImage && (
               <div className="mb-4 p-3 bg-gray-800 rounded-lg border border-gray-700 flex items-start gap-3">
-                <img
+                <Image
                   src={selectedImage}
                   alt="preview"
-                  className="h-20 w-20 object-cover rounded-md shadow-md"
+                  className="object-cover rounded-md shadow-md"
+                  width={80}
+                  height={80}
+                  unoptimized
                 />
                 <div className="flex-1">
-                  <span className="text-sm text-gray-300">Image ready to send</span>
+                  <span className="text-sm text-gray-300">
+                    Image ready to send
+                  </span>
                 </div>
                 <button
                   onClick={() => setSelectedImage(null)}
@@ -458,8 +484,7 @@ export default function ChatroomPage() {
                 Chatroom not found
               </h3>
               <p className="text-gray-400">
-                The chatroom you're looking for doesn't exist or has been
-                deleted.
+                <p>The chatroom you&apos;re looking for doesn&apos;t exist.</p>
               </p>
             </div>
           </div>

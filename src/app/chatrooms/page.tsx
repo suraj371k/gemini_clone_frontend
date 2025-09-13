@@ -222,7 +222,7 @@ export default function ChatroomList() {
                         size="sm"
                         onClick={() => goToPage(currentPage - 1)}
                         disabled={currentPage === 1}
-                        className="border-gray-600 text-gray-200 hover:bg-blue-900/30 hover:text-blue-400 transition-all duration-300"
+                        className="border-gray-600 text-black bg-white transition-all duration-300"
                         aria-label="Previous page"
                       >
                         <ChevronLeft className="h-4 w-4" />
@@ -244,7 +244,7 @@ export default function ChatroomList() {
                             className={`w-8 h-8 p-0 ${
                               page === currentPage
                                 ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-                                : "border-gray-600 text-gray-200 hover:bg-blue-900/30 hover:text-blue-400"
+                                : "border-gray-600 text-gray-200 bg-blue-900/30 hover:text-blue-400"
                             } transition-all duration-300`}
                             aria-label={`Page ${page}`}
                           >
@@ -258,7 +258,7 @@ export default function ChatroomList() {
                         size="sm"
                         onClick={() => goToPage(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                        className="border-gray-600 text-gray-200 hover:bg-blue-900/30 hover:text-blue-400 transition-all duration-300"
+                        className="border-gray-600 text-black bg-white hover:bg-blue-900/30 hover:text-blue-400 transition-all duration-300"
                         aria-label="Next page"
                       >
                         Next
