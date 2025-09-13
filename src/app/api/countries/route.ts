@@ -1,7 +1,16 @@
-// app/api/countries/route.ts
 import { NextResponse } from "next/server";
 
 const API_KEY = "3221264a96310bc333aa512758d6037f";
+
+interface Country {
+  name: string;
+  callingCodes?: string[];
+}
+
+interface CountryResponse {
+  name: string;
+  code: string;
+}
 
 export async function GET() {
   try {
@@ -17,28 +26,27 @@ export async function GET() {
       );
     }
 
-    const data = await res.json();
+    const data: Country[] = await res.json();
 
-    // CountryLayer returns format:
-    // [
-    //   {
-    //     name: "Afghanistan",
-    //     callingCodes: ["93"],
-    //     ...
-    //   }
-    // ]
-    const countries = data.map((c: any) => ({
+    const countries: CountryResponse[] = data.map((c) => ({
       name: c.name,
       code: c.callingCodes?.length ? `+${c.callingCodes[0]}` : "",
     }));
 
-    const filtered = countries.filter((c: any) => c.code !== "");
+    const filtered = countries.filter((c) => c.code !== "");
 
     return NextResponse.json(filtered);
-  } catch (err: any) {
-    console.error("API /countries error:", err.message);
+  } catch (err) {
+    if (err instanceof Error) {
+      console.error("API /countries error:", err.message);
+      return NextResponse.json(
+        { error: "Internal Server Error", details: err.message },
+        { status: 500 }
+      );
+    }
+    console.error("Unknown error in /countries:", err);
     return NextResponse.json(
-      { error: "Internal Server Error", details: err.message },
+      { error: "Internal Server Error" },
       { status: 500 }
     );
   }
