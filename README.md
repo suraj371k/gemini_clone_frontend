@@ -7,7 +7,7 @@ This project simulates **OTP login**, **chatroom management**, **AI-powered mess
 ---
 
 ## 🌐 Live Demo
-👉 [View Deployed App](https://your-vercel-link.vercel.app)  
+👉 [View Deployed App](https://gemini-clone-frontend-iota.vercel.app)  
 
 ---
 
