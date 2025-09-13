@@ -280,7 +280,7 @@ export default function SignupForm() {
                 Phone Verification
               </h2>
               <p className="text-gray-400">
-                We'll send a verification code to your phone
+                We&apos;ll send a verification code to your phone
               </p>
             </div>
 
